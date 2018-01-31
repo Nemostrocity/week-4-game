@@ -3,77 +3,164 @@
 <head>
 	<title>Crystal Game</title>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
  <div class="container">
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <div class="jumbotron">
-             <h2>Crystal Collector.</h2>
-              <span id="reLoad"></span>
+             <h2>Crystal Collector!</h2>
+              
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <div class="jumbotron">
-             <h2>Crystal Collector.</h2>
-              <span id="reLoad"></span>
-          </div>
+             <h2 id="target"></h2>
+             <h2 id="score"></h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-          <div class="jumbotron">
-             <h2>Crystal Collector.</h2>
-              <span id="reLoad"></span>
+        <div class="col-md-3">
+          <div class="jumbotron crystal" data-name="one">
+             <h2>Crystal One</h2>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-          <div class="jumbotron">
-             <h2>Crystal Collector.</h2>
-              <span id="reLoad"></span>
+        <div class="col-md-3">
+          <div class="jumbotron crystal" data-name="two">
+             <h2>Crystal Two</h2>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-          <div class="jumbotron">
-             <h2>Crystal Collector.</h2>
-              <span id="reLoad"></span>
+        <div class="col-md-3">
+          <div class="jumbotron crystal" data-name="three">
+             <h2>Crystal Three</h2>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-          <div class="jumbotron">
-             <h2>Crystal Collector.</h2>
-              <span id="reLoad"></span>
+        <div class="col-md-3">
+          <div class="jumbotron crystal" data-name="four">
+             <h2>Crystal Four</h2>
           </div>
         </div>
-      </div>
-    </div>
 
-// Create a new GitHub repo called week-4-game, then clone it to your computer.
-
-// Inside the week-4-game folder, create an index.html file.
-
-// Still inside the week-4-game directory, make a folder called assets.
-
-// Inside the assets directory, make three additional folders: javascript, css and images.
-// In the javascript folder, make a file called game.js.
-// In the css folder, make a file called style.css.
-// In the css folder, make a file called reset.css. Paste into it the code found from the Meyerweb Reset.
-// In the images folder, save any of the images you plan on using.
-// Set up your repository to deploy to Github Pages.
-
-// Push the above changes to GitHub.
-
-// Choose whichever game you want to make from the choices below. The CrystalsCollector game is the recommended option
+        <!-- Row End -->
+     
 
 
+<script type="text/javascript">
+var score = 0;
+var target;
+var crystal1;
+var crystal2;
+var crystal3;
+var crystal4;
+var wins = 0;
+var losses = 0;
+
+
+function start(){
+  generateRandomTarget();
+  assignCrystalValue();
+  displayStates();
+};
+
+start(); 
+
+
+
+function displayStates(){
+  //displays score and target
+$("#target").html("My Target Number: " + target);
+$("#score").html("My Score: " + score);
+
+}
+function generateRandomTarget(){
+  target = Math.floor(Math.random() * (120 - 19 + 1)) + 19;
+    //be between 19 - 120.
+};
+
+
+function generateRamdomCrystalValue(){
+  //between 1 - 12.
+  return Math.floor(Math.random() * (12 - 1 + 1)) + 1;
+
+};
+
+function assignCrystalValue(){
+   crystal1 = generateRamdomCrystalValue();
+   crystal2 = generateRamdomCrystalValue();
+   crystal3 = generateRamdomCrystalValue();
+   crystal4 =  generateRamdomCrystalValue();
+}
+
+function incrementScore (bacon){
+  //if clickedCrystal is ONE
+  if (bacon==="one"){
+        score+=crystal1;
+     } else if (bacon==="two"){
+        score+=crystal2;
+    } else if (bacon==="three"){
+        score+=crystal3;
+    } else if (bacon==="four"){
+        score+=crystal4;
+    }
+    displayStates();
+    checkWins();
+  }
+  
+    //increment our score by its cyrstal One's value
+  //if clickedCrysatl is two
+  //increment our score by its cyrstal two's value
+    //if clickedCrystal is three
+    //increment our score by its cyrstal three's value
+  //if clickedCrysatl is four
+  //increment our score by its cyrstal fours's value
+//}
+//click listener on crystal
+$(".crystal").on("click", function (){
+  var clickedCrystal = $(this).attr("data-name");
+  incrementScore(clickedCrystal)
+
+  
+})
+
+// function functionName(){
+//   console.log("Hello")
+// }
+
+function checkWins(){
+  if (score===target){
+    wins++;
+    gameReset()
+  } else if (score > target){
+    losses++;
+    gameReset()
+  }
+  //check if userScore is equal or greater then target
+
+};
+
+function gameReset(){
+  score = 0;
+  generateRandomTarget();
+  assignCrystalValue();
+  displayStates();
+  //reset score
+  //displayScore
+  //generates Random Target
+  //genrates new cystal scores
+
+}
+
+
+
+
+
+
+  
 // The player will have to guess the answer, just like in Hangman. This time, though, the player will guess with numbers instead of letters.
 
 // Here's how the app works:
@@ -94,9 +181,10 @@
 
 // When the game begins again, the player should see a new random number. Also, all the crystals will have four new hidden values. Of course, the user's score (and score counter) will reset to zero.
 // The app should show the number of games the player wins and loses. To that end, do not refresh the page as a means to restart the game.
+</script>
 
 
 
-<script src="jquery-1.4.4.min.js"></script>
+
 </body>
 </html>
